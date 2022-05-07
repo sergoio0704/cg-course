@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <img src="" id="imgHidden" alt="hidden">
+    <div class="wrapper" id="wrapper">
+        <div class="navigation">
+            <input id="imgSource" type="file">
+            <input type="color" id="colorPanel">
+            <select name="brushSizePanel" id="brushSizePanel"></select>
+            <button id="saveButton">Сохранить</button>
+        </div>
+        <div class="content">
+            <canvas id="canvas" width="1000" height="550"></canvas>
+        </div>
+    </div>
+</body>
+<script type="module" src="./main.js"></script>
+</html>

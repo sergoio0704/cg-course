@@ -1,0 +1,53 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ccc;
+}
+
+.content {
+    display: flex;
+    width: 100%;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    border-bottom: 2px solid black;
+    background-color: antiquewhite;
+}
+
+.navigation > input {
+    cursor: pointer;
+}
+
+#brushSizePanel {
+    width: 50px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#imgHidden {
+    display: none;
+}
+
+#canvas {
+    background-color: #fff;
+}
+
+#wrapper {
+    width: 1000px;
+    height: 600px;
+    margin: 100px auto;
+    border: 2px solid black;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+#imgSource {
+    width: 400px;
+}
