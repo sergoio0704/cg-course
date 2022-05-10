@@ -1,5 +1,5 @@
-import * as THREE from "https://cdn.skypack.dev/three"
-import { ParametricGeometry } from "./three/examples/jsm/geometries/ParametricGeometry.js"
+import * as THREE from '../three/build/three.module.js'
+import { ParametricGeometry } from "../three/examples/jsm/geometries/ParametricGeometry.js"
 
 var colorsArray = []
 

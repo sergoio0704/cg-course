@@ -1,0 +1,44 @@
+html, body {
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-image: url('./img/bg.jpg'); */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#infoCanvas {
+    margin-top: 10px;
+}
+
+#nextFigureCanvas, #infoCanvas {
+    display: block;
+    margin-right: 20px;
+}
+
+#canvas, #nextFigureCanvas, #infoCanvas {
+    border: 1px solid black;
+    background: #ccc;
+}
+
+.info button {
+    display: none;
+    margin-bottom: 30px;
+    width: 160px;
+    height: 40px;
+    background: blue;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+
+
