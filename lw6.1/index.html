@@ -19,7 +19,21 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- <canvas id="canvas"></canvas> -->
     <div id="container"></div>
+    <script id="vertexShader" type="x-shader/x-vertex">
+        void main() {
+            vec3 current_position = position;
+            if (position.x != 0.0) {
+                current_position.y = sin(current_position.x)/current_position.x;
+            }
+            current_position.x = current_position.x / 5.0;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(current_position, 1);
+        }
+    </script>
+    <script id="fragmentShader" type="x-shader/x-fragment">
+        void main() {
+            gl_FragColor = vec4(0.7, 0.7, 0.7, 1.0);
+        }
+    </script>
 </body>
 </html>

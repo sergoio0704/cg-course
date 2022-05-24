@@ -43,6 +43,7 @@ export default class Gamefield {
               if (this.#currentTetromino.matrix[row][col]) {
                 if (this.#currentTetromino.row + row < 0) {
                     this.#isGameOver = true;
+                    //
                     return gameOverFunc();
                 }
         

@@ -28,7 +28,7 @@ export class GeometryDecorator extends ParametricGeometry{
         )
         let colorSettings = generateUniqueRgbColor()
         for (let i = 0; i < this.attributes.position.count; i++) {
-            if (i % ( Math.round(this.attributes.position.count / 6) ) == 0) {
+            if (i % ( Math.round(this.attributes.position.count / 1.2) ) == 0) {
                 colorSettings  = generateUniqueRgbColor()
             }
             this.attributes.color.setXYZ(i, colorSettings.r, colorSettings.g, colorSettings.b)

@@ -10,14 +10,23 @@
 <body>
     <img src="" id="imgHidden" alt="hidden">
     <div class="wrapper" id="wrapper">
-        <div class="navigation">
-            <input id="imgSource" type="file">
-            <input type="color" id="colorPanel">
-            <select name="brushSizePanel" id="brushSizePanel"></select>
-            <button id="saveButton">Сохранить</button>
+        <div class="navigation" id="navigation">
+            <div class="menu-wrapper">
+                <button id="menuBtn">Меню</button>
+                <ul class="menu" id="menu">
+                    <li id="openBtn">Открыть</li>
+                    <li id="newCanvasBtn">Новый холст</li>
+                    <li id="saveButton">Скачать</li>
+                </ul>
+            </div>
+            <div class="tool-panel">
+                <input hidden id="imgSource" type="file">
+                <input type="color" id="colorPanel">
+                <select name="brushSizePanel" id="brushSizePanel"></select>
+            </div>  
         </div>
         <div class="content">
-            <canvas id="canvas" width="1000" height="550"></canvas>
+            <canvas id="canvas"></canvas>
         </div>
     </div>
 </body>

@@ -1,8 +1,7 @@
-import * as THREE from "https://cdn.skypack.dev/three"
-import Orbit from "https://cdn.skypack.dev/three-orbit-controls"
+import * as THREE from '../three/build/three.module.js'
+import { OrbitControls } from '../three/examples/jsm/controls/OrbitControls.js'
 import { GeometryDecorator } from "./geometry-decorator.js"
 
-var OrbitControls = new Orbit(THREE)
 var width
 var height
 var container
@@ -44,14 +43,14 @@ function loop() {
 function createMaterials() {
     const material = new THREE.MeshPhongMaterial({
         vertexColors: true,
-        side: THREE.DoubleSide,
+        side: THREE.FrontSide,
         opacity: 0.6,
         transparent: true,
       })
     
     const wireframeMaterial = new THREE.MeshBasicMaterial({
         color: 0x000000,
-        wireframe: true,
+        wireframe: false,
     })    
 
     return {
@@ -84,8 +83,8 @@ function initCamera() {
 
 function initControls() {
     controls = new OrbitControls(camera, renderer.domElement)
-    controls.minPolarAngle = Math.PI / 2
-    controls.maxPolarAngle = Math.PI / 2
+    // controls.minPolarAngle = Math.PI / 2
+    // controls.maxPolarAngle = Math.PI / 2
     controls.enableZoom = false
 }
 

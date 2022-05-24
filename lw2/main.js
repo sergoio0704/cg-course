@@ -6,19 +6,61 @@ var img = document.getElementById('imgHidden')
 var colorPanel = document.getElementById('colorPanel')
 var brushSizePanel = document.getElementById('brushSizePanel')
 var saveButton = document.getElementById('saveButton')
+var menu = document.getElementById('menu')
+var menuBtn = document.getElementById('menuBtn')
+var openBtn = document.getElementById('openBtn')
+var newCanvasBtn = document.getElementById('newCanvasBtn')
+var wrapper = document.getElementById('wrapper')
+var navigation = document.getElementById('navigation')
+var storeCanvas
 
 var isDraw = false
 
 var mouse = { x: 0, y: 0 }
 
 function main() {
+    canvas.width = wrapper.offsetWidth - 4
+    canvas.height = wrapper.offsetHeight - navigation.offsetHeight - 4
+    ctx.lineJoin = ctx.lineCap = 'round';
+
     input.addEventListener('change', loadImage, false)
     colorPanel.addEventListener('change', changeColor, false)
     brushSizePanel.addEventListener('input', changeBrushSize, false)
     saveButton.addEventListener('click', saveImage, false)
+    menuBtn.addEventListener('mouseover', showMenu, false)
+    menu.addEventListener('mouseleave', hideMenu, false)
+    openBtn.addEventListener('click', (e) => { input.click() }, false)
+    newCanvasBtn.addEventListener('click', clearCanvas, false)
+
+    window.onresize = function(e) {
+        canvas.width = wrapper.offsetWidth - 4
+        canvas.height = wrapper.offsetHeight - navigation.offsetHeight - 4
+        //img.src = canvas.toDataURL("image/png")
+        draw()
+        // if (storeCanvas) {
+        //     ctx.putImageData(storeCanvas, 0, 0)
+        // }  
+    }
 
     initDrawMode()
     initBrushSizePanel()
+}
+
+function clearCanvas(e) {
+    ctx.clearRect(0,0, canvas.width, canvas.height)
+}
+
+function showMenu(e) {
+    if (menu.hasAttribute('style')) {
+        return
+    }
+    else {
+        menu.setAttribute('style', 'display: flex;')
+    }
+}
+
+function hideMenu(e) {
+    menu.removeAttribute('style')
 }
 
 function saveImage(e) {
@@ -74,6 +116,8 @@ function initDrawMode() {
 
         ctx.closePath()
         isDraw = false
+
+        storeCanvas = ctx.getImageData(0,0,canvas.width,canvas.height)
     })
 }
 
@@ -90,7 +134,6 @@ function draw() {
 
     const scaledImageWidth = img.width * ratio;
     const scaledImageHeight = img.height * ratio;
-
 
     const startX = (canvas.clientWidth - scaledImageWidth) / 2;
     const startY = (canvas.clientHeight - scaledImageHeight) / 2;

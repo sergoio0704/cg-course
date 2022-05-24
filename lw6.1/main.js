@@ -1,6 +1,5 @@
 import * as THREE from '../three/build/three.module.js'
 import { OrbitControls } from '../three/examples/jsm/controls/OrbitControls.js'
-import { GeometryDecorator } from "./geometry-decorator.js"
 
 var controls
 var width
@@ -16,61 +15,41 @@ function init() {
     initRender()
     initCamera()
     initScene()
-    initControls()
+    //initControls()
 
     const light = new THREE.AmbientLight(0xffffff)
     scene.add(light)
 
-    const geometry = new GeometryDecorator((u, v, target) => {
-      u = u * Math.PI * 4;
-      v = -v
+    const points = createPoints(-10, 10, 0.3)
+    const geometry = new THREE.BufferGeometry().setFromPoints(points)
 
-      const x = (1 + v/2 * Math.cos(u/2)) * Math.cos(u)
-      const y = (1 + v/2 * Math.cos(u/2)) * Math.sin(u)
-      const z = v/2 * Math.sin(u/2)
+    const shaderMaterial = new THREE.ShaderMaterial( {
+      vertexShader: document.getElementById( 'vertexShader' ).textContent,
+      fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+    });
 
-      target.set(x,y,z)
-      return new THREE.Vector3(x,y,z);
-    }, 100, 1).paintFaces()
+    const line = new THREE.Line( geometry, shaderMaterial );
 
-    geometry.rotateX(-Math.PI * 0.5)
-    geometry.center();
-
-    const {material, wireframeMaterial} = createMaterials()
-    const mesh = new THREE.Mesh(geometry, wireframeMaterial)
-    const wireframe = new THREE.Mesh(geometry, material)
-    mesh.add(wireframe)
-    scene.add(mesh)
+    scene.add( line );
 
     loop()
+}
+
+function createPoints(minX, maxX, step) {
+  let points = []
+  for ( let i = minX; i <= maxX; i += step) {
+    points.push(new THREE.Vector3(i, 1, 1))
+  }
+
+  return points
 }
 
 function loop() {
   renderer.render(scene, camera)
-  controls.update()
+  //controls.update()
   requestAnimationFrame(function () {
     loop()
   })
-}
-
-function createMaterials() {
-  const material = new THREE.MeshPhongMaterial({
-    vertexColors: true,
-    side: THREE.DoubleSide,
-    opacity: 1,
-    transparent: true,
-  })
-
-  const wireframeMaterial = new THREE.MeshBasicMaterial({
-    color: 0x000000,
-    side: THREE.DoubleSide,
-   // wireframe: true
-  })
-
-  return {
-    material,
-    wireframeMaterial,
-  }
 }
 
 function prepare() {

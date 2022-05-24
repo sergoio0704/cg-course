@@ -73,6 +73,7 @@ function redraw() {
         }
     }
 
+    //скорость игры не должна звисеть от скорости комп.
     const tetromino = gamefield.getCurrentTetramino()
     if (tetromino) {
         if (++count > currentLevel.speed) {

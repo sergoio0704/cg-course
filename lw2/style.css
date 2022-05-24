@@ -25,6 +25,46 @@ body {
     cursor: pointer;
 }
 
+.menu-wrapper {
+    position: relative;
+    width: 100px;
+
+}
+
+#menuBtn {
+    width: 100%;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 1px solid black;
+    height: 50px;
+}
+
+.menu {
+    background: #ccf;
+    width: 100px;
+    position: absolute;
+    list-style-type: none;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-radius: 5px;
+}
+
+.menu li {
+    cursor: pointer;
+}
+
+.menu li:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.tool-panel {
+    display: flex;
+    margin-left: 50px;
+}
+
 #brushSizePanel {
     width: 50px;
     font-size: 20px;
@@ -40,9 +80,9 @@ body {
 }
 
 #wrapper {
-    width: 1000px;
-    height: 600px;
-    margin: 100px auto;
+    width: 60%;
+    height: 90vh;
+    margin: 5px auto;
     border: 2px solid black;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0,0,0,0.8);
