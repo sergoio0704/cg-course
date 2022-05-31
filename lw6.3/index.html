@@ -21,18 +21,34 @@
 <body>
     <div id="container"></div>
     <script id="vertexShader" type="x-shader/x-vertex">
+        float radius = 0.5;
+        vec3 current_position;
+        varying vec3 vColor;
+        uniform float u_time;
         void main() {
-            vec3 current_position = position;
-            if (position.x != 0.0) {
-                current_position.y = 1.0 * sin(current_position.x);
+            current_position = position;
+            if ( u_time < 3.0 )
+            {
+                current_position.x = radius * sin(position.y) * cos(position.x);
+                current_position.y = radius * sin(position.y) * sin(position.x);
+                current_position.z = radius * cos(position.y) * sin(u_time);
+                
             }
-            current_position.x = 1.0 * cos(current_position.x);
+            else 
+            {
+                current_position.x = (radius + radius / 4.0 * cos(position.x)) * cos(position.y);
+                current_position.y = (radius + radius / 4.0 * cos(position.x)) * sin(position.y);
+                current_position.z = ( radius / 4.0 ) * sin(position.x) * sin(u_time);
+            }
+
+            vColor = current_position;
             gl_Position = projectionMatrix * modelViewMatrix * vec4(current_position, 1);
         }
     </script>
     <script id="fragmentShader" type="x-shader/x-fragment">
+        varying vec3 vColor;
         void main() {
-            gl_FragColor = vec4(0.7, 0.7, 0.7, 1.0);
+            gl_FragColor = vec4(vColor, 0.5);
         }
     </script>
 </body>

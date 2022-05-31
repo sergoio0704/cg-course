@@ -52,6 +52,8 @@ function init() {
     initControls()
 
     //Добавить фоновый свет ambient
+    const ambientLight = new THREE.AmbientLight(0xffffff)
+    scene.add(ambientLight)
     //При зуме сцены не зумить skybox
     
     const sunMeshRequst = new PlanetMeshRequest(
@@ -88,7 +90,7 @@ function init() {
     sunBase.add(earthBase)
     earthBase.add(moonBase)
     
-    const sunLight = new THREE.PointLight( 0xffffff, 6, 4000);
+    const sunLight = new THREE.PointLight( 0xffffff, 10, 5000);
     sunLight.position.set( 0,0,0 );
     sunLight.castShadow = true
     sunLight.shadow.mapSize.width = 2048

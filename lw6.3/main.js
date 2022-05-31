@@ -8,6 +8,8 @@ var container
 var camera
 var scene
 var renderer
+var line
+var time = 0
 
 function init() {
     prepare()
@@ -15,40 +17,77 @@ function init() {
     initRender()
     initCamera()
     initScene()
-    //initControls()
+    initControls()
 
     const light = new THREE.AmbientLight(0xffffff)
     scene.add(light)
 
-    const points = createPoints(-10, 10, 0.3)
+    const points = createVerticesTorus(128, 96)
     const geometry = new THREE.BufferGeometry().setFromPoints(points)
 
     const shaderMaterial = new THREE.ShaderMaterial( {
+      uniforms: { u_time: { value: time } },
       vertexShader: document.getElementById( 'vertexShader' ).textContent,
-      fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+      fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
+      wireframe: true
     });
 
-    const line = new THREE.Line( geometry, shaderMaterial );
+    line = new THREE.LineSegments( geometry, shaderMaterial );
 
     scene.add( line );
 
     loop()
 }
 
-function createPoints(minX, maxX, step) {
+function createVerticesSphere(minX, maxX) {
   let points = []
-  let phi = Math.PI / 180
+  let step  = Math.PI / ( 180 * maxX )
   for ( let i = minX; i <= maxX; i += step) {
-    points.push(new THREE.Vector3(phi, 1, 1))
-    phi += Math.PI / 180 * 10
+    const phiAngle = i
+    const deltaAngle = getRandomIntInclusive(0, 10) / 10 * Math.PI
+    points.push(new THREE.Vector3(phiAngle, deltaAngle, 1 ))
   }
 
   return points
 }
 
+function createVerticesTorus(radialSegments = 128, tubularSegments = 96) {
+  let points = []
+  let arc = Math.PI * 2
+  for ( let j = 0; j <= radialSegments; j ++ ) {
+    for ( let i = 0; i <= tubularSegments; i ++ ) {
+        const u = i / tubularSegments * arc;
+				const v = j / radialSegments * Math.PI * 2;
+
+        points.push(new THREE.Vector3(u, v, 1 ))
+    }
+  }
+
+  return points
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
+}
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+}
+
 function loop() {
   renderer.render(scene, camera)
-  //controls.update()
+  time += 0.003
+  if (time >= 6.0) {
+    time = 0
+  }
+
+  line.material.uniforms.u_time.value = time
+
+  controls.update()
   requestAnimationFrame(function () {
     loop()
   })
@@ -79,13 +118,13 @@ function initCamera() {
     1,
     10000
   )
-  camera.position.z = 10
+  camera.position.z = 1
+  camera.position.y = -10
+  camera.position.x = 0
 }
 
 function initControls() {
   controls = new OrbitControls(camera, renderer.domElement)
-  controls.minPolarAngle = Math.PI / 2
-  controls.maxPolarAngle = Math.PI / 2
   controls.enableZoom = true
 }
 
